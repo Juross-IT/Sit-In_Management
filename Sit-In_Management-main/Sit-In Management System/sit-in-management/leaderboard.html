@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <h2>Top Sit-In Participants</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>ID No.</th>
+        <th>Name</th>
+        <th>Total Points</th>
+        <th>Sessions Earned</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboardBody"></tbody>
+  </table>
+
+  <script>
+    const pointsData = JSON.parse(localStorage.getItem("points")) || [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    const sorted = pointsData.sort((a, b) => b.points - a.points);
+
+    const leaderboardBody = document.getElementById("leaderboardBody");
+    leaderboardBody.innerHTML = sorted.map((user, index) => {
+      const student = users.find(u => u.username === user.id);
+      return `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${user.id}</td>
+          <td>${student ? `${student.firstName} ${student.lastName}` : "N/A"}</td>
+          <td>${user.points}</td>
+          <td>${Math.floor(user.points / 3)}</td>
+        </tr>
+      `;
+    }).join('');
+  </script>
+</body>
+</html>

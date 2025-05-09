@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab Resources</title>
+  <link rel="stylesheet" href="css/lab_resources.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Lab Resources</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Uploaded By</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody id="resourceTableBody">
+        <!-- Dynamic content here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Fetch resources from localStorage (key: "labResources")
+    const resources = JSON.parse(localStorage.getItem("labResources")) || [];
+
+    const tableBody = document.getElementById("resourceTableBody");
+
+    if (resources.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="4">No resources available.</td></tr>';
+    } else {
+      resources.forEach(resource => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${resource.title}</td>
+          <td>${resource.description}</td>
+          <td>${resource.uploadedBy}</td>
+          <td><a href="${resource.fileUrl}" download>Download</a></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>

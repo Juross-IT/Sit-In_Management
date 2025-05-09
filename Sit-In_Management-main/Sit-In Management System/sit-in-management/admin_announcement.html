@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Announcements</title>
+  <link rel="stylesheet" href="css/admin_announcement.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Admin - Manage Announcements</h1>
+
+    <form id="announcementForm">
+      <input type="text" id="title" placeholder="Announcement Title" required />
+      <textarea id="message" placeholder="Announcement Message" required></textarea>
+      <button type="submit">Post Announcement</button>
+    </form>
+
+    <h2>Existing Announcements</h2>
+    <div id="announcementList" class="announcement-list"></div>
+
+    <div class="back-link">
+      <a href="admin_dashboard.html">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("announcementForm");
+    const listContainer = document.getElementById("announcementList");
+
+    function loadAnnouncements() {
+      listContainer.innerHTML = "";
+      const data = JSON.parse(localStorage.getItem("announcements")) || [];
+      data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      data.forEach((a, index) => {
+        const card = document.createElement("div");
+        card.className = "announcement-card";
+        card.innerHTML = `
+          <h3>${a.title}</h3>
+          <p>${a.message}</p>
+          <span class="date">Posted: ${new Date(a.date).toLocaleDateString()}</span>
+          <button onclick="deleteAnnouncement(${index})" class="delete-btn">Delete</button>
+        `;
+        listContainer.appendChild(card);
+      });
+    }
+
+    function deleteAnnouncement(index) {
+      const data = JSON.parse(localStorage.getItem("announcements")) || [];
+      data.splice(index, 1);
+      localStorage.setItem("announcements", JSON.stringify(data));
+      loadAnnouncements();
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (title && message) {
+        const newPost = { title, message, date: new Date().toISOString() };
+        const announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+        announcements.push(newPost);
+        localStorage.setItem("announcements", JSON.stringify(announcements));
+        form.reset();
+        loadAnnouncements();
+      }
+    });
+
+    loadAnnouncements();
+  </script>
+</body>
+</html>

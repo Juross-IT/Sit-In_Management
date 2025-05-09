@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Lab Schedule</title>
+  <link rel="stylesheet" href="styles/global.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      background-color: #fff;
+      color: #333;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label, select, input {
+      color: #000;
+    }
+
+    input, select {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-top: 10px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Admin - Manage Lab Schedule</h1>
+
+  <form id="scheduleForm">
+    <div class="form-group">
+      <label for="lab">Lab:</label>
+      <select id="lab">
+        <option value="Lab 524">Lab 524</option>
+        <option value="Lab 526">Lab 526</option>
+        <option value="Lab 528">Lab 528</option>
+        <option value="Lab 30">Lab 30</option>
+        <option value="Lab 542">Lab 542</option>
+        <option value="Lab 544">Lab 544</option>
+        <option value="Lab 517">Lab 517</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="day">Day:</label>
+      <select id="day">
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="time">Time:</label>
+      <input type="text" id="time" placeholder="e.g. 10:00 AM - 12:00 PM" />
+    </div>
+    <button type="submit">Add Schedule</button>
+  </form>
+
+  <table id="scheduleTable">
+    <thead>
+      <tr>
+        <th>Lab</th>
+        <th>Day</th>
+        <th>Time</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="js/lab_schedule_admin.js"></script>
+</body>
+</html>

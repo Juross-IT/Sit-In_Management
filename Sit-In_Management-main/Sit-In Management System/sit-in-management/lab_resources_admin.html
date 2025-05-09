@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Lab Resources</title>
+  <link rel="stylesheet" href="styles/lab_resources_admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Manage Lab Resources</h1>
+
+    <form id="uploadForm">
+      <div class="form-group">
+        <label for="title">Resource Title</label>
+        <input type="text" id="title" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="file">Select File</label>
+        <input type="file" id="file" accept=".pdf,.docx,.pptx,.zip,.txt" required>
+      </div>
+      <button type="submit">Upload Resource</button>
+    </form>
+
+    <h2>Uploaded Resources</h2>
+    <table id="resourceTable">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>File</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const tableBody = document.querySelector("#resourceTable tbody");
+    const currentAdmin = JSON.parse(localStorage.getItem("currentUser")) || { username: "Unknown" };
+
+    function loadResources() {
+      const resources = JSON.parse(localStorage.getItem("labResources")) || [];
+      tableBody.innerHTML = "";
+
+      resources.forEach(resource => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${resource.title}</td>
+          <td>${resource.description}</td>
+          <td><a href="${resource.fileUrl}" download>Download</a></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const fileInput = document.getElementById("file");
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Please choose a file.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const fileData = event.target.result;
+
+        const newResource = {
+          title,
+          description,
+          uploadedBy: currentAdmin.username,
+          fileUrl: fileData
+        };
+
+        const resources = JSON.parse(localStorage.getItem("labResources")) || [];
+        resources.push(newResource);
+        localStorage.setItem("labResources", JSON.stringify(resources));
+
+        alert("Resource uploaded successfully.");
+        form.reset();
+        loadResources();
+      };
+
+      reader.readAsDataURL(file); // Converts file to base64
+    });
+
+    // Initial load
+    loadResources();
+  </script>
+</body>
+</html>

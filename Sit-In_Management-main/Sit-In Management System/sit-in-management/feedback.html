@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit Feedback</title>
+  <link rel="stylesheet" href="css/feedback.css" />
+</head>
+<body>
+  <div class="feedback-container">
+    <h1>Submit Feedback</h1>
+    <form id="feedbackForm">
+      <label for="lab">Lab Used:</label>
+      <select id="lab" required>
+        <option value="" disabled selected>Select a lab</option>
+        <option>Lab 524</option>
+        <option>Lab 526</option>
+        <option>Lab 528</option>
+        <option>Lab 30</option>
+        <option>Lab 542</option>
+        <option>Lab 544</option>
+        <option>Lab 517</option>
+      </select>
+
+      <label for="purpose">Purpose:</label>
+      <select id="purpose" required>
+        <option value="" disabled selected>Select purpose</option>
+        <option>C programming</option>
+        <option>Java Programming</option>
+        <option>Python Programming</option>
+        <option>C# Programming</option>
+        <option>Database</option>
+        <option>Digital Logic & Design</option>
+        <option>Embedded Systems & IoT</option>
+        <option>System Integration & Architecture</option>
+        <option>Computer application</option>
+        <option>Project Management</option>
+        <option>IT Trends</option>
+        <option>Technopreneurship</option>
+        <option>Capstone</option>
+      </select>
+
+      <label for="feedback">Your Feedback:</label>
+      <textarea id="feedback" placeholder="Write your feedback here..." required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+    <div class="back-btn">
+      <a href="user_dashboard.html">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("feedbackForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const lab = document.getElementById("lab").value;
+      const purpose = document.getElementById("purpose").value;
+      const message = document.getElementById("feedback").value.trim();
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+      if (!currentUser) {
+        alert("You must be logged in to submit feedback.");
+        return;
+      }
+
+      const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+      feedbacks.push({
+        userId: currentUser.username,
+        lab,
+        purpose,
+        message,
+        timestamp: new Date().toLocaleString()
+      });
+
+      localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
+
+      alert("Thank you for your feedback!");
+      document.getElementById("feedbackForm").reset();
+    });
+  </script>
+</body>
+</html>

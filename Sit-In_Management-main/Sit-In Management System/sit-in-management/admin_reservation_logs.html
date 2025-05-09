@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reservation Logs</title>
+  <link rel="stylesheet" href="css/admin_reservation_logs.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Reservation Logs</h1>
+
+    <div class="filters">
+      <label>Filter by Lab:</label>
+      <select id="filterLab">
+        <option value="">All</option>
+        <option>Lab 524</option>
+        <option>Lab 526</option>
+        <option>Lab 528</option>
+        <option>Lab 30</option>
+        <option>Lab 542</option>
+        <option>Lab 544</option>
+        <option>Lab 517</option>
+      </select>
+
+      <label>Filter by Status:</label>
+      <select id="filterStatus">
+        <option value="">All</option>
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Declined</option>
+      </select>
+
+      <label>Filter by Date:</label>
+      <input type="date" id="filterDate" />
+
+      <button onclick="applyFilters()">Apply Filters</button>
+      <button onclick="exportToCSV()">Export to CSV</button>
+      <button onclick="exportToPDF()">Export to PDF</button>
+    </div>
+
+    <table id="logTable">
+      <thead>
+        <tr>
+          <th>ID No.</th>
+          <th>Student Name</th>
+          <th>Lab</th>
+          <th>Purpose</th>
+          <th>Date</th>
+          <th>Time-In</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="logTableBody"></tbody>
+    </table>
+  </div>
+
+  <script src="js/admin_reservation_logs.js"></script>
+</body>
+</html>

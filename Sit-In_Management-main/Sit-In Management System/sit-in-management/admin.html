@@ -1,0 +1,40 @@
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h2>Welcome to the Sit-In Management System</h2>
+      <button onclick="logout()">Logout</button>
+    </div>
+  
+    <!-- your existing HTML content goes here -->
+    <h2>Reservation Approval Panel</h2>
+
+    <label for="filterStatus"><strong>Filter by Status:</strong></label>
+    <select id="filterStatus" onchange="displayReservations()">
+      <option value="all">All</option>
+      <option value="Pending Approval">Pending</option>
+      <option value="Approved">Approved</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+    
+    <table id="adminReservationTable">
+      <thead>
+        <tr>
+          <th>ID Number</th>
+          <th>Name</th>
+          <th>Purpose</th>
+          <th>Lab</th>
+          <th>Date</th>
+          <th>Time-In</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    
+  
+    <script src="js/main.js"></script>
+    <script>
+      checkAccess("admin"); 
+    </script>
+  </body>
+  

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sit-In History</title>
+  <link rel="stylesheet" href="css/sitin_history.css" />
+</head>
+<body>
+  <div class="history-container">
+    <h1>Your Sit-In History</h1>
+    <table id="userReservationTable">
+      <thead>
+        <tr>
+          <th>Purpose</th>
+          <th>Lab</th>
+          <th>Date</th>
+          <th>Time-In</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="back-btn">
+      <a href="user_dashboard.html">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    checkAccess("user");
+
+    const currentUser = getCurrentUser();
+    const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
+    const tableBody = document.querySelector("#userReservationTable tbody");
+
+    const userReservations = reservations.filter(res => res.id === currentUser.username);
+
+    if (userReservations.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="5">No reservations found.</td></tr>';
+    } else {
+      userReservations.forEach(res => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${res.purpose}</td>
+          <td>${res.lab}</td>
+          <td>${res.date}</td>
+          <td>${res.time}</td>
+          <td>${res.status}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+</html>

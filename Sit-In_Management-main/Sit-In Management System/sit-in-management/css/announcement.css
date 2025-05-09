@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #8e9eab, #eef2f3);
+    color: #333;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #37474f;
+    margin-bottom: 30px;
+  }
+  
+  .announcement-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .announcement-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-left: 6px solid #5e4b8b;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+  }
+  
+  .announcement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .announcement-card h2 {
+    margin: 0 0 10px;
+    color: #5e4b8b;
+  }
+  
+  .announcement-card p {
+    font-size: 1rem;
+  }
+  
+  .announcement-card .date {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  .back-link {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .back-link a {
+    text-decoration: none;
+    color: #5e4b8b;
+    font-weight: bold;
+  }
+  

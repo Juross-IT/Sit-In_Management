@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reserve Lab Session</title>
+  <link rel="stylesheet" href="css/reserve.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Reserve a Lab Session</h2>
+    <form id="reserveForm">
+      <label>ID Number:</label>
+      <input type="text" id="idNo" readonly />
+
+      <label>Student Name:</label>
+      <input type="text" id="studentName" readonly />
+
+      <label>Purpose:</label>
+      <select id="purpose" required>
+        <option value="">Select Purpose</option>
+        <option>C Programming</option>
+        <option>Java Programming</option>
+        <option>Python Programming</option>
+        <option>C# Programming</option>
+        <option>Database</option>
+        <option>Digital Logic & Design</option>
+        <option>Embedded Systems & IoT</option>
+        <option>System Integration & Architecture</option>
+        <option>Computer Application</option>
+        <option>Project Management</option>
+        <option>IT Trends</option>
+        <option>Technopreneurship</option>
+        <option>Capstone</option>
+      </select>
+
+      <label>Lab:</label>
+      <select id="lab" required>
+        <option value="">Select Lab</option>
+        <option>Lab 524</option>
+        <option>Lab 526</option>
+        <option>Lab 528</option>
+        <option>Lab 30</option>
+        <option>Lab 542</option>
+        <option>Lab 544</option>
+        <option>Lab 517</option>
+      </select>
+
+      <label>Date:</label>
+      <input type="date" id="date" required />
+
+      <label>Time-In:</label>
+      <input type="time" id="timeIn" required />
+
+      <label>Remaining Sessions:</label>
+      <input type="text" id="remainingSessions" readonly />
+
+      <button type="submit">Reserve</button>
+    </form>
+  </div>
+
+  <script src="js/reserve.js"></script>
+</body>
+</html>

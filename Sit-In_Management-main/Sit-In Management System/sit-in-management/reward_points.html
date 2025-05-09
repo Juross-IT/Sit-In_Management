@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reward Points</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h2>Reward Student Points</h2>
+  <form id="rewardForm">
+    <label for="studentId">Student ID (Username):</label>
+    <input type="text" id="studentId" required />
+
+    <label for="pointsToAdd">Points to Add:</label>
+    <input type="number" id="pointsToAdd" required />
+
+    <button type="submit">Add Points</button>
+  </form>
+
+  <script>
+    document.getElementById("rewardForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const studentId = document.getElementById("studentId").value.trim();
+      const pointsToAdd = parseInt(document.getElementById("pointsToAdd").value.trim());
+
+      if (!studentId || isNaN(pointsToAdd)) {
+        alert("Please fill in all fields correctly.");
+        return;
+      }
+
+      let pointsList = JSON.parse(localStorage.getItem("points")) || [];
+      const index = pointsList.findIndex(p => p.id === studentId);
+
+      if (index !== -1) {
+        pointsList[index].points += pointsToAdd;
+      } else {
+        pointsList.push({ id: studentId, points: pointsToAdd });
+      }
+
+      localStorage.setItem("points", JSON.stringify(pointsList));
+      alert("Points added successfully!");
+      document.getElementById("rewardForm").reset();
+    });
+  </script>
+</body>
+</html>

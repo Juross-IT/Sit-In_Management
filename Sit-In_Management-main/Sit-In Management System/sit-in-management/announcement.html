@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announcements</title>
+  <link rel="stylesheet" href="css/announcement.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Latest Announcements</h1>
+    <div id="announcementList" class="announcement-list"></div>
+
+    <div class="back-link">
+      <a href="user_dashboard.html">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    const sampleAnnouncements = [
+      {
+        title: "System Maintenance",
+        message: "The Sit-In System will be under maintenance on Saturday 6 PM - 9 PM.",
+        date: "2025-05-05"
+      },
+      {
+        title: "New Sit-In Policy",
+        message: "Students must now reserve at least 24 hours in advance.",
+        date: "2025-05-03"
+      }
+    ];
+
+    // Save sample data once
+    if (!localStorage.getItem("announcements")) {
+      localStorage.setItem("announcements", JSON.stringify(sampleAnnouncements));
+    }
+
+    const announcementList = JSON.parse(localStorage.getItem("announcements")) || [];
+    const container = document.getElementById("announcementList");
+
+    if (announcementList.length === 0) {
+      container.innerHTML = "<p>No announcements at the moment.</p>";
+    } else {
+      // Sort by date (latest first)
+      announcementList.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      announcementList.forEach(a => {
+        const card = document.createElement("div");
+        card.className = "announcement-card";
+        card.innerHTML = `
+          <h2>${a.title}</h2>
+          <p>${a.message}</p>
+          <span class="date">Posted on: ${new Date(a.date).toLocaleDateString()}</span>
+        `;
+        container.appendChild(card);
+      });
+    }
+  </script>
+</body>
+</html>
